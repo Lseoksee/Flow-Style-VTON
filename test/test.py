@@ -103,7 +103,7 @@ for epoch in range(1,2):
             ## save try-on image only
             utils.save_image(
                 p_tryon,
-                os.path.join('./our_t_results', data['p_name'][0]),
+                os.path.join('./our_t_results', f"{i}_{data['p_name'][0]}"),
                 nrow=int(1),
                 normalize=True,
                 range=(-1,1),
