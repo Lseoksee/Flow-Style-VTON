@@ -102,31 +102,30 @@ for epoch in range(1,2):
             
             ## save try-on image only
 
+            # utils.save_image(
+            #     p_tryon,
+            #     os.path.join('./our_t_results', data['p_name'][0]),
+            #     nrow=int(1),
+            #     normalize=True,
+            #     value_range=(-1,1),
+            # )
+            
+            # save person image, garment, flow, warped garment, and try-on image
+            
+            a = real_image.float().cuda()
+            b = clothes.cuda()
+            flow_offset = de_offset(last_flow)
+            flow_color = f2c(flow_offset).cuda()
+            c= warped_cloth.cuda()
+            d = p_tryon
+            combine = torch.cat([a[0],b[0], flow_color, c[0], d[0]], 2).squeeze()
             utils.save_image(
-                p_tryon,
-                os.path.join('./our_t_results', data['p_name'][0]),
-                nrow=int(1),
-                normalize=True,
-                value_range=(-1,1),
+               combine,
+               os.path.join('./im_gar_flow_wg', data['p_name'][0]),
+               nrow=int(1),
+               normalize=True,
+               range=(-1,1),
             )
-            
-            ## save person image, garment, flow, warped garment, and try-on image
-            
-            #a = real_image.float().cuda()
-            #b = clothes.cuda()
-            #flow_offset = de_offset(last_flow)
-            #flow_color = f2c(flow_offset).cuda()
-            #c= warped_cloth.cuda()
-            #d = p_tryon
-            #combine = torch.cat([a[0],b[0], flow_color, c[0], d[0]], 2).squeeze()
-            #utils.save_image(
-            #    combine,
-            #    os.path.join('./im_gar_flow_wg', data['p_name'][0]),
-            #    nrow=int(1),
-            #    normalize=True,
-            #    range=(-1,1),
-            #)
-            
 
         step += 1
         if epoch_iter >= dataset_size:
