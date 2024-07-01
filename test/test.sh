@@ -1,1 +1,1 @@
-python test.py --name demo --resize_or_crop None --batchSize 1 --gpu_ids 0
+python test.py --name demo --resize_or_crop None --batchSize 1 --gpu_ids 0 --warp_checkpoint checkpoint/PFAFN_warp_epoch_101.pth --gen_checkpoint checkpoint/PFAFN_gen_epoch_101.pth --dataroot 'dataset'
